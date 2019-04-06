@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:PublicTransport.Xamarin.Views"
+            xmlns:local="clr-namespace:PublicTransport.Xamarin.Views.Base.CodeBehind;assembly=PublicTransport.Xamarin"
+            x:Class="PublicTransport.Xamarin.Views.MainPage"
+            xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps">
+
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Grid.Column="0">
+                <maps:Map Grid.Row="1" x:Name="map"
+                      InitialCameraUpdate="-23.68, -46.87, 13, 30, 60"/>
+            </StackLayout>
+            <StackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Start"  VerticalOptions="Start">
+                <Button Text="Kek"></Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+    <!--<TabbedPage.Children>
+        <NavigationPage Title="Browse">
+            <NavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_feed.png"/>
+                </OnPlatform>
+            </NavigationPage.Icon>
+            <x:Arguments>
+                <views:ItemsPage />
+            </x:Arguments>
+        </NavigationPage>
+        
+        <NavigationPage Title="About">
+            <NavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_about.png"/>
+                </OnPlatform>
+            </NavigationPage.Icon>
+            <x:Arguments>
+                <views:AboutPage />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>-->
+</local:BaseContentPage>
