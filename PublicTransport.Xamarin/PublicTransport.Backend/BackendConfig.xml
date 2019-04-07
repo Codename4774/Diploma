@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
   <Backend>
+    <GTFSFolderPath value="/data/user/0/com.companyname.PublicTransport.Xamarin/files/GTFS" />
   </Backend>
 </Configuration>

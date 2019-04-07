@@ -1,5 +1,9 @@
-﻿using PublicTransport.Backend.Services;
+﻿using Akavache;
+using GTFS;
+using PublicTransport.Backend.Services;
+using PublicTransport.Xamarin.Common;
 using PublicTransport.Xamarin.Services.Navigation;
+using System.Reactive.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;

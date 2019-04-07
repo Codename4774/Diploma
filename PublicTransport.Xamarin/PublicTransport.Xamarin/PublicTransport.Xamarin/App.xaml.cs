@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 using PublicTransport.Xamarin.Views;
 using PublicTransport.Xamarin.Services;
 using PublicTransport.Xamarin.ViewModels;
+using PublicTransport.Xamarin.Common;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace PublicTransport.Xamarin
@@ -15,7 +16,6 @@ namespace PublicTransport.Xamarin
         {
             InitializeComponent();
             ServiceProvider.Initialize();
-
             ServiceProvider.NavigationService.OpenMasterDetailPage<MainViewModel, MainMenuMasterViewModel>();
         }
 
