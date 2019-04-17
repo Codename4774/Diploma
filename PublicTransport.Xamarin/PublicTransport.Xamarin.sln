@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicTransport.Xamarin.And
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicTransport.Xamarin.iOS", "PublicTransport.Xamarin\PublicTransport.Xamarin.iOS\PublicTransport.Xamarin.iOS.csproj", "{0B9A6206-3EB1-4E7D-8297-92E79F749312}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicTransport.Xamarin", "PublicTransport.Xamarin\PublicTransport.Xamarin\PublicTransport.Xamarin.csproj", "{0CFA93B8-52A9-4EAB-8D36-2536BF30C5DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicTransport.Xamarin", "PublicTransport.Xamarin\PublicTransport.Xamarin\PublicTransport.Xamarin.csproj", "{0CFA93B8-52A9-4EAB-8D36-2536BF30C5DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicTransport.Backend", "PublicTransport.Backend\PublicTransport.Backend.csproj", "{29B90DF7-560B-47B2-9DD1-70CFF9B6A84D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicTransport.Backend", "PublicTransport.Backend\PublicTransport.Backend.csproj", "{29B90DF7-560B-47B2-9DD1-70CFF9B6A84D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

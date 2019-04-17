@@ -25,6 +25,7 @@ namespace PublicTransport.Backend.Services.GTFS
 
         public GTFSProvider(IBackendConfiguration configurationManager, object GTFSFeedFromProerties = null)
         {
+            _isInited = false;
             _dirPath = configurationManager.GetProperty("GTFSFolderPath");
             _GTFSDirectorySource = new GTFSDirectorySource(_dirPath);
             _GTFSReader = new GTFSReader<GTFSFeed>();
@@ -35,6 +36,7 @@ namespace PublicTransport.Backend.Services.GTFS
             });
             initTask.GetAwaiter().OnCompleted(() =>
             {
+                _isInited = true;
                 if (InitCompleted != null)
                 {
                     InitCompleted(this, new EventArgs());
@@ -51,6 +53,16 @@ namespace PublicTransport.Backend.Services.GTFS
             get
             {
                 return _GTFSFeed;
+            }
+        }
+
+        private bool _isInited;
+
+        public bool IsInited
+        {
+            get
+            {
+                return _isInited;
             }
         }
 

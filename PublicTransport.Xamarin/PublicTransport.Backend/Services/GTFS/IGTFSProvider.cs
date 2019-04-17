@@ -10,6 +10,7 @@ namespace PublicTransport.Backend.Services.GTFS
     public interface IGTFSProvider
     {
         GTFSFeed GTFSFeed { get; }
+        bool IsInited { get; }
         event EventHandler InitCompleted;
     }
 }

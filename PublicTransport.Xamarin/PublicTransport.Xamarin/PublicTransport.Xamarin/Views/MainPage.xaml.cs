@@ -14,7 +14,7 @@ namespace PublicTransport.Xamarin.Views
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = new MainViewModel();
+            BindingContext = new MainViewModel(map);
         }
     }
 }

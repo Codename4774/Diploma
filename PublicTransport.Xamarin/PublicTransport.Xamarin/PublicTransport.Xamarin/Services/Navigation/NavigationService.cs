@@ -452,7 +452,7 @@ namespace PublicTransport.Xamarin.Services.Navigation
                 Console.Write(e);
             }
 
-            if (page != null)
+            if (page != null && page.BindingContext == null)
                 page.BindingContext = Activator.CreateInstance(viewModelType);
 
             return page;

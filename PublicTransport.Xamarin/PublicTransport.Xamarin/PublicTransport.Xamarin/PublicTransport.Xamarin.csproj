@@ -30,6 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
     <PackageReference Include="akavache" Version="6.5.1" />
     <PackageReference Include="GTFS" Version="2.1.5-pre03" />
