@@ -18,20 +18,25 @@ namespace PublicTransport.Xamarin.ViewModels
 
         public bool ShowDetailsPage { get; set; }
 
+        public bool FindButtonEnabled { get; set; }
+
         public MainViewModel(Map map)
         {
             _GTFSProvider = ServiceProvider.GTFSProvider;
             _mapManager = new MapManager(map);
+            FindButtonEnabled = false;
             if (_GTFSProvider.IsInited)
             {
                 _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
+                FindButtonEnabled = true;
             }
             else
             {
                 _GTFSProvider.InitCompleted += (sender, e) =>
                 {
                     _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
-                };
+                    FindButtonEnabled = true;
+                };              
             }
         }
 
@@ -42,6 +47,7 @@ namespace PublicTransport.Xamarin.ViewModels
             {
                 _findButtonCommand = _findButtonCommand ?? new Command(async () =>
                 {
+                    await ServiceProvider.NavigationService.OpenAsync<FindViewModel>();
                 });
                 return _findButtonCommand;
             }

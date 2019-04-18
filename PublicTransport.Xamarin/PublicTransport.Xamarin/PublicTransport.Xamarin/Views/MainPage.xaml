@@ -19,7 +19,7 @@
                       InitialCameraUpdate="-23.68, -46.87, 13, 30, 60" />
             </StackLayout>
             <StackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Start"  VerticalOptions="Start">
-                <Button Text="Kek" Command="{Binding FindButtonCommand}"></Button>
+                <Button Text="Kek" IsEnabled="{Binding FindButtonEnabled}" Command="{Binding FindButtonCommand}"></Button>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

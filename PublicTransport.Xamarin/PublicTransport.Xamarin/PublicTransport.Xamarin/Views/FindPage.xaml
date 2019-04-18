@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:PublicTransport.Xamarin.Views.Base.CodeBehind;assembly=PublicTransport.Xamarin"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PublicTransport.Xamarin.Views.FindPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Entry Grid.Column="0" Grid.Row="0" x:Name="EntryFindBy" Text="{Binding FindByText}">
+                </Entry>
+                <Button Grid.Column="1" Grid.Row="0" x:Name="ButtonFind" Text="Find" Command="{Binding FindCommand}">
+                </Button>
+            </Grid>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <ListView
+                    x:Name="ListViewFindedItem"
+                    VerticalOptions="FillAndExpand" 
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding FindedItems}"
+                    CachingStrategy="RetainElement">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Tapped="ViewCell_Tapped">
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Column="0" Grid.Row="0" x:Name="ImageElementIcon" Source="{Binding ImagePath}" />
+                                        <Label Grid.Column="1" Grid.Row="0" x:Name="LabelElementTitle" Text="{Binding Title}" />
+                                        <Button Grid.Column="2" Grid.Row="0" Text="Add to favorites" x:Name="ButtonElementAddToFavorite" />
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BaseContentPage>

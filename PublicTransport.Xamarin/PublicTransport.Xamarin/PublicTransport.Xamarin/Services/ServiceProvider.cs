@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PublicTransport.Xamarin.Services.ImageResourceManager;
+using System.Reflection;
 
 namespace PublicTransport.Xamarin.Services
 {
@@ -16,6 +18,7 @@ namespace PublicTransport.Xamarin.Services
     {
         private static INavigationService _navigationService;
 
+        private static IImageResourceManager _imageResourceManager;
 
         public static INavigationService NavigationService
         {
@@ -25,10 +28,20 @@ namespace PublicTransport.Xamarin.Services
             }
         }
 
+        public static IImageResourceManager ImageResourceManager
+        {
+            get
+            {
+                return _imageResourceManager;
+            }
+        }
+
         public static void Initialize()
         {
             InitializeBackend();
             _navigationService = new NavigationService();
+            _imageResourceManager = new PublicTransport.Xamarin.Services.ImageResourceManager.ImageResourceManager(
+                typeof(ServiceProvider).GetTypeInfo().Assembly);
         }
     }
 }

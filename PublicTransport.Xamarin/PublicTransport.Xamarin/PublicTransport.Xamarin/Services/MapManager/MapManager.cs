@@ -1,6 +1,7 @@
 ﻿using GTFS.Entities;
 using PublicTransport.Xamarin.Common;
 using PublicTransport.Xamarin.Models;
+using PublicTransport.Xamarin.Services.ImageResourceManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,29 +19,27 @@ namespace PublicTransport.Xamarin.Services.MapManager
 
         private Dictionary<int, StopItem> _stopItems;
 
+        private IImageResourceManager _imageResourceManager;
+
         public MapManager(Map map)
         {
             _map = map;
+            _imageResourceManager = ServiceProvider.ImageResourceManager;
             _bitmaps = LoadBitmapDescriptors();
             _stopItems = new Dictionary<int, StopItem>();
+
         }
 
 
         private Dictionary<string, BitmapDescriptor> LoadBitmapDescriptors()
         {
-            Assembly assembly = typeof(MapManager).GetTypeInfo().Assembly;
             Dictionary<string, BitmapDescriptor> descriptors = new Dictionary<string, BitmapDescriptor>();
 
-            descriptors.Add(Constants.STOP_ICON_FILE_PATH, 
-                BitmapDescriptorFactory.FromStream(GetResourceStream(Constants.STOP_ICON_FILE_PATH, assembly), Constants.STOP_ICON_FILE_PATH)
+            descriptors.Add(Constants.STOP_ICON_FILE_PATH,
+                BitmapDescriptorFactory.FromStream(_imageResourceManager.GetImageFromCache(Constants.STOP_ICON_FILE_PATH))
             );
 
             return descriptors;
-        }
-
-        private static System.IO.Stream GetResourceStream(string fileName, Assembly assembly)
-        {
-            return assembly.GetManifestResourceStream($"PublicTransport.Xamarin.Images.{fileName}") ?? assembly.GetManifestResourceStream($"PublicTransport.Xamarin.local.{fileName}");
         }
 
         #region IMapManager implementation

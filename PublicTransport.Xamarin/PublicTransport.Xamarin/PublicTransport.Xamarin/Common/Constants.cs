@@ -8,5 +8,6 @@ namespace PublicTransport.Xamarin.Common
     {
         public static string GTFS_FEED_KEY = "GTFSFeed";
         public static string STOP_ICON_FILE_PATH = "stop.png";
+        public static string ROUTE_ICON_FILE_PATH = "stop.png";
     }
 }
