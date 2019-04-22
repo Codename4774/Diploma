@@ -1,5 +1,6 @@
 ﻿using GTFS.Entities;
 using PublicTransport.Xamarin.Common;
+using PublicTransport.Xamarin.Models;
 using PublicTransport.Xamarin.Services;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,17 @@ using Xamarin.Forms;
 
 namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
 {
-    public class StopItemViewModel : FindedItemViewModel
+    public class TripItemVievModel : FindedItemViewModel
     {
-        protected Stop Stop
+        private Route _route;
+
+        private Stop _stop;
+
+        protected Trip Trip
         {
             get
             {
-                return (Stop)Entity;
+                return (Trip)Entity;
             }
             set
             {
@@ -34,12 +39,14 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
         {
             get
             {
-                return Stop.Name;
+                return _route.ShortName;
             }
         }
 
-        public StopItemViewModel(Stop stop) : base(stop)
+        public TripItemVievModel(Stop stop, Trip trip, Route route) : base(trip)
         {
+            _route = route;
+            _stop = stop;
         }
 
         public ICommand _openDetailsCommand;
@@ -49,7 +56,7 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
             {
                 _openDetailsCommand = _openDetailsCommand ?? new Command(async () =>
                 {
-                    await ServiceProvider.NavigationService.OpenAsync<StopInfoViewModel>(Stop);
+                    await _navigationService.OpenAsync<RouteStopInfoViewModel>(new RouteStopParameter() { Route = _route, Direction = Trip.Headsign, Stop = _stop });
                 });
                 return _openDetailsCommand;
             }

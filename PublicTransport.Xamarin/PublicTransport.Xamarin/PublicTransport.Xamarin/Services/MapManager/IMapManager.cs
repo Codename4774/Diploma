@@ -13,6 +13,8 @@ namespace PublicTransport.Xamarin.Services.MapManager
         void AddStopsToMap(IEnumerable<Stop> stops);
         void RemoveStopFromMap(int stopHashCode);
         void ClearMap();
+        void AddStopToMapWithFocus(Stop stop);
         void SetVisibilityOfStop(int stopHashCode, bool visibility);
+        void SetVisibilityOfStops(bool visibility);
     }
 }

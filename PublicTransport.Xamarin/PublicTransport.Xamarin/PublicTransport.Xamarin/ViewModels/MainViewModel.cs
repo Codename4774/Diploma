@@ -1,4 +1,5 @@
-﻿using PublicTransport.Backend.Services.GTFS;
+﻿using Acr.UserDialogs;
+using PublicTransport.Backend.Services.GTFS;
 using PublicTransport.Xamarin.Services;
 using PublicTransport.Xamarin.Services.MapManager;
 using PublicTransport.Xamarin.ViewModels.Base;
@@ -18,7 +19,20 @@ namespace PublicTransport.Xamarin.ViewModels
 
         public bool ShowDetailsPage { get; set; }
 
-        public bool FindButtonEnabled { get; set; }
+        private bool _findButtonEnabled;
+
+        public bool FindButtonEnabled
+        {
+            get
+            {
+                return _findButtonEnabled;
+            }
+            set
+            {
+                _findButtonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MainViewModel(Map map)
         {
@@ -35,9 +49,25 @@ namespace PublicTransport.Xamarin.ViewModels
                 _GTFSProvider.InitCompleted += (sender, e) =>
                 {
                     _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
+                    //UserDialogs.Instance.Alert("GTFS feed was inited");
                     FindButtonEnabled = true;
                 };              
             }
+        }
+
+        public void HideAllStops()
+        {
+            _mapManager.SetVisibilityOfStops(false);
+        }
+
+        public void ShowAllStops()
+        {
+            _mapManager.SetVisibilityOfStops(true);
+        }
+
+        public void OpenStopInfo(Pin pin)
+        {
+            _navigationService.OpenAsync<StopInfoViewModel>(_mapManager[pin.GetHashCode()].Stop);
         }
 
         public ICommand _findButtonCommand;

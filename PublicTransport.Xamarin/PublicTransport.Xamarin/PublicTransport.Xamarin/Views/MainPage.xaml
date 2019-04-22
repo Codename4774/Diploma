@@ -4,7 +4,8 @@
             xmlns:views="clr-namespace:PublicTransport.Xamarin.Views"
             xmlns:local="clr-namespace:PublicTransport.Xamarin.Views.Base.CodeBehind;assembly=PublicTransport.Xamarin"
             x:Class="PublicTransport.Xamarin.Views.MainPage"
-            xmlns:maps="clr-namespace:PublicTransport.Xamarin.Views.MapControls;assembly=PublicTransport.Xamarin">
+            xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+            Title="Public Transport">
 
     <ContentPage.Content>
         <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -15,35 +16,12 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackLayout Grid.Row="0" Grid.Column="0">
-                <maps:PublicTransportMap Grid.Row="1" x:Name="map"
-                      InitialCameraUpdate="-23.68, -46.87, 13, 30, 60" />
+                <maps:Map Grid.Row="1" x:Name="map"
+                      InitialCameraUpdate="-23.68, -46.87, 13, 30, 60" CameraIdled="map_CameraIdled" PinClicked="map_PinClicked" />
             </StackLayout>
             <StackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Start"  VerticalOptions="Start">
-                <Button Text="Kek" IsEnabled="{Binding FindButtonEnabled}" Command="{Binding FindButtonCommand}"></Button>
+                <Button Text="Find" IsVisible="{Binding FindButtonEnabled, Mode=TwoWay}" Command="{Binding FindButtonCommand}"></Button>
             </StackLayout>
         </Grid>
     </ContentPage.Content>
-    <!--<TabbedPage.Children>
-        <NavigationPage Title="Browse">
-            <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_feed.png"/>
-                </OnPlatform>
-            </NavigationPage.Icon>
-            <x:Arguments>
-                <views:ItemsPage />
-            </x:Arguments>
-        </NavigationPage>
-        
-        <NavigationPage Title="About">
-            <NavigationPage.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_about.png"/>
-                </OnPlatform>
-            </NavigationPage.Icon>
-            <x:Arguments>
-                <views:AboutPage />
-            </x:Arguments>
-        </NavigationPage>
-    </TabbedPage.Children>-->
 </local:BaseContentPage>

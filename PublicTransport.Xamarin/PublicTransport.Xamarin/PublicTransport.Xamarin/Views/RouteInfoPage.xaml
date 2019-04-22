@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PublicTransport.Xamarin.Views.RouteInfoPage"
+             xmlns:local="clr-namespace:PublicTransport.Xamarin.Views.Base.CodeBehind;assembly=PublicTransport.Xamarin"
+             Title="Route Info">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding RouteName, Mode=OneWay}"
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand" />
+            <Label Text="{Binding RouteType, Mode=OneWay}"
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand" />
+            <Label Text="{Binding RouteNumber, Mode=OneWay}"
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand" />
+            <Picker Title="Direction" ItemsSource="{Binding Directions, Mode=TwoWay}" SelectedItem="{Binding SelectedDirection, Mode=TwoWay}">
+            </Picker>
+            <ListView
+                    x:Name="Stops"
+                    VerticalOptions="FillAndExpand" 
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding Stops, Mode=TwoWay}"
+                    CachingStrategy="RetainElement"
+                    ItemTapped="Stops_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Label Text="{Binding Name, Mode=TwoWay}"></Label>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BaseContentPage>

@@ -2,16 +2,18 @@
 using PublicTransport.Xamarin.Common;
 using PublicTransport.Xamarin.Models;
 using PublicTransport.Xamarin.Services.ImageResourceManager;
+using PublicTransport.Xamarin.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
 namespace PublicTransport.Xamarin.Services.MapManager
 {
-    public class MapManager : IMapManager
+    public class MapManager : BaseViewModel, IMapManager
     {
         private Dictionary<String, BitmapDescriptor> _bitmaps;
 
@@ -26,8 +28,7 @@ namespace PublicTransport.Xamarin.Services.MapManager
             _map = map;
             _imageResourceManager = ServiceProvider.ImageResourceManager;
             _bitmaps = LoadBitmapDescriptors();
-            _stopItems = new Dictionary<int, StopItem>();
-
+            _stopItems = new Dictionary<int, StopItem>();      
         }
 
 
@@ -46,7 +47,7 @@ namespace PublicTransport.Xamarin.Services.MapManager
 
         public StopItem this[int hashCode] => _stopItems[hashCode];
 
-        public void AddStopToMap(Stop stop)
+        public void AddStopToMap(Stop stop, bool focus)
         {
             Pin pin = new Pin()
             {
@@ -59,6 +60,10 @@ namespace PublicTransport.Xamarin.Services.MapManager
 
             _stopItems.Add(stopItem.GetHashCode(), stopItem);
             _map.Pins.Add(stopItem.Pin);
+            if (focus)
+            {
+                _map.SelectedPin = pin;
+            }
         }
 
         public void ClearMap()
@@ -85,7 +90,25 @@ namespace PublicTransport.Xamarin.Services.MapManager
         {
             foreach (Stop stop in stops)
             {
-                AddStopToMap(stop);
+                AddStopToMap(stop, false);
+            }
+        }
+
+        public void AddStopToMapWithFocus(Stop stop)
+        {
+            AddStopToMap(stop, true);
+        }
+
+        public void AddStopToMap(Stop stop)
+        {
+            AddStopToMap(stop, false);
+        }
+
+        public void SetVisibilityOfStops(bool visibility)
+        {
+            foreach (Pin pin in _map.Pins)
+            {
+                pin.IsVisible = visibility;
             }
         }
 

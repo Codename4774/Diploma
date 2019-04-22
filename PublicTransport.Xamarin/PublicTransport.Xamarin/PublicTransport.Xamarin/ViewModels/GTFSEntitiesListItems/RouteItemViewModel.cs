@@ -50,7 +50,7 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
             {
                 _openDetailsCommand = _openDetailsCommand ?? new Command(async () =>
                 {
-                    //open details page for Route
+                    await ServiceProvider.NavigationService.OpenAsync<RouteInfoViewModel>(Route);
                 });
                 return _openDetailsCommand;
             }

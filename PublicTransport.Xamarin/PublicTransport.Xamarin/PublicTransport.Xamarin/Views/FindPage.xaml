@@ -2,26 +2,29 @@
 <local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:local="clr-namespace:PublicTransport.Xamarin.Views.Base.CodeBehind;assembly=PublicTransport.Xamarin"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PublicTransport.Xamarin.Views.FindPage">
+             x:Class="PublicTransport.Xamarin.Views.FindPage"
+             Title="Find">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <Grid VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="90*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="70*" />
+                    <ColumnDefinition Width="30*" />
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
                 <Entry Grid.Column="0" Grid.Row="0" x:Name="EntryFindBy" Text="{Binding FindByText}">
                 </Entry>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="ButtonFind" Text="Find" Command="{Binding FindCommand}">
                 </Button>
             </Grid>
-            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1">
                 <ListView
                     x:Name="ListViewFindedItem"
-                    VerticalOptions="FillAndExpand" 
-                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="StartAndExpand" 
+                    HorizontalOptions="Fill"
                     ItemsSource="{Binding FindedItems}"
                     CachingStrategy="RetainElement">
                     <ListView.ItemTemplate>
@@ -30,7 +33,9 @@
                                 <ViewCell.View>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="15*" />
+                                            <ColumnDefinition Width="65*" />
+                                            <ColumnDefinition Width="20*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
@@ -45,6 +50,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </local:BaseContentPage>
