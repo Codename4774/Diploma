@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:PublicTransport.Xamarin.Views.Base.CodeBehind;assembly=PublicTransport.Xamarin"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PublicTransport.Xamarin.Views.FavoriteListPage"
+             Title="Favorite list">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView
+                    x:Name="ListViewFavoriteList"
+                    VerticalOptions="FillAndExpand" 
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding FavoriteList}"
+                    RowHeight="70"
+                    CachingStrategy="RetainElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*" />
+                                        <ColumnDefinition Width="65*" />
+                                        <ColumnDefinition Width="15*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Column="0" Grid.Row="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="65*" />
+                                            <RowDefinition Height="35*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Column="0" Grid.Row="0" x:Name="ImageElementIcon" Source="{Binding ImagePath}" />
+                                        <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" FontSize="Small" x:Name="LabelNextArriveTime" Text="{Binding MinutesToNextArriveTime}" />
+                                    </Grid>
+                                    <Label Grid.Column="1" Grid.Row="0" x:Name="LabelElementTitle" Text="{Binding Title}" />
+                                    <Button Grid.Column="2" Grid.Row="0" FontSize="Micro"  Text="Remove" x:Name="ButtonElementAddToFavorite" Command="{Binding RemoveFromFavoriteListCommand}" />
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BaseContentPage>

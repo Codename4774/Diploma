@@ -9,7 +9,7 @@ namespace PublicTransport.Xamarin.Common
     {
         public bool Equals(T x, T y)
         {
-            return x.RouteId == y.RouteId;
+            return x.RouteId.GetHashCode() == y.RouteId.GetHashCode();
         }
 
         public int GetHashCode(T obj)

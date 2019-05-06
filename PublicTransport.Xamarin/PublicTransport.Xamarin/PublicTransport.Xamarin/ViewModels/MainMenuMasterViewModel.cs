@@ -44,25 +44,33 @@ namespace PublicTransport.Xamarin.ViewModels
 
         public override async Task InitializeAsync(object navigationData = null)
         {
-            UserDialogs.Instance.ShowLoading();
             AddMenuElements();
-            UserDialogs.Instance.HideLoading();
         }
 
         private void AddMenuElements()
         {
             MenuElements.Add(new MenuElement()
             {
-                MenuElementText = "Profile",
+                MenuElementText = "Map",
                 MenuAction = async () =>
                 {
+                    await ServiceProvider.NavigationService.ChangeDetailPage<MainViewModel>();
                 }
             });
             MenuElements.Add(new MenuElement()
             {
-                MenuElementText = "Main Page",
+                MenuElementText = "Find",
                 MenuAction = async () =>
                 {
+                    await ServiceProvider.NavigationService.ChangeDetailPage<FindViewModel>();
+                }
+            });
+            MenuElements.Add(new MenuElement()
+            {
+                MenuElementText = "Favorite list",
+                MenuAction = async() =>
+                {
+                    await ServiceProvider.NavigationService.ChangeDetailPage<FavoriteListViewModel>();
                 }
             });
         }

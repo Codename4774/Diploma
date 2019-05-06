@@ -35,7 +35,7 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
         {
             get
             {
-                return Route.ShortName + Environment.NewLine + Route.LongName;
+                return "Route number: " + Route.ShortName + Environment.NewLine + Route.LongName;
             }
         }
 

@@ -8,7 +8,13 @@ namespace PublicTransport.Backend.Services.FavoritesList
 {
     public interface IFavoritesListManager
     {
-        void AddToFavoriteList(Stop stop, Trip trip, StopTime stopTime, string favoriteName);
+        string AddToList(Stop stop, Route route, string direction);
+        void RemoveFromList(FavoriteStop stop);
+        FavoriteStop RemoveFromList(Stop stop, Route route, string direction);
+        FavoriteStop RemoveFromList(string stopID, string routeID, string direction);
+        bool IsItemContained(Stop stop, Route route, string direction);
+        bool IsItemContained(string stopID, string routeID, string direction);
+        void SaveListState();
         ICollection<FavoriteStop> FavoriteStops { get; }
     }
 }

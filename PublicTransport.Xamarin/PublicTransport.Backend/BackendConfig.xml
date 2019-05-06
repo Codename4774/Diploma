@@ -2,5 +2,7 @@
 <Configuration>
   <Backend>
     <GTFSFolderPath value="/data/user/0/com.companyname.PublicTransport.Xamarin/files/GTFS" />
+    <MinutesBefore value="3" />
+    <MinutesAfter value="30" />
   </Backend>
 </Configuration>

@@ -35,5 +35,10 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
         {
             get;
         }
+
+        public virtual ICommand AddToFavoriteListCommand
+        {
+            get;
+        }
     }
 }

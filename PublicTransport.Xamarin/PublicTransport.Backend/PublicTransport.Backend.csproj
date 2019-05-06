@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\GTFS\**" />
+    <Compile Remove="Services\GTFS\DB\**" />
+    <EmbeddedResource Remove="Models\GTFS\**" />
+    <EmbeddedResource Remove="Services\GTFS\DB\**" />
+    <None Remove="Models\GTFS\**" />
+    <None Remove="Services\GTFS\DB\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\GTFS\GTFSReader.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="BackendConfig.xml" />
   </ItemGroup>
 

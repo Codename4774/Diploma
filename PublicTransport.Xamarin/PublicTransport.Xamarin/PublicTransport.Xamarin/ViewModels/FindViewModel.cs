@@ -45,18 +45,21 @@ namespace PublicTransport.Xamarin.ViewModels
 
         private void FindElements(string textForSearch)
         {
-            List<FindedItemViewModel> resultedList = new List<FindedItemViewModel>();
-
-            resultedList.AddRange(FindInRoutes(textForSearch));
-            resultedList.AddRange(FindInStops(textForSearch));
-
-            IOrderedEnumerable<FindedItemViewModel> orderedResult = resultedList.OrderBy<FindedItemViewModel, string>(item => item.Title);
-
-            FindedItems.Clear();
-
-            foreach (FindedItemViewModel item in orderedResult)
+            if (_GTFSProvider.IsInited)
             {
-                FindedItems.Add(item);
+                List<FindedItemViewModel> resultedList = new List<FindedItemViewModel>();
+
+                resultedList.AddRange(FindInRoutes(textForSearch));
+                resultedList.AddRange(FindInStops(textForSearch));
+
+                IOrderedEnumerable<FindedItemViewModel> orderedResult = resultedList.OrderBy<FindedItemViewModel, string>(item => item.Title);
+
+                FindedItems.Clear();
+
+                foreach (FindedItemViewModel item in orderedResult)
+                {
+                    FindedItems.Add(item);
+                }
             }
         }
 

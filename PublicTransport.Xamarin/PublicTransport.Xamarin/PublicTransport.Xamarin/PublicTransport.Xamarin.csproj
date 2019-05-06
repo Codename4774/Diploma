@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\SqliteDBPath\**" />
+    <EmbeddedResource Remove="Services\SqliteDBPath\**" />
+    <None Remove="Services\SqliteDBPath\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Services\IDataStore.cs" />
     <Compile Remove="Services\MockDataStore.cs" />
     <Compile Remove="ViewModels\AboutViewModel.cs" />
@@ -38,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
     <PackageReference Include="akavache" Version="6.5.1" />
     <PackageReference Include="GTFS" Version="2.1.5-pre03" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
@@ -52,6 +58,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\FavoriteListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\FindPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -5,26 +5,27 @@
              x:Class="PublicTransport.Xamarin.Views.FindPage"
              Title="Find">
     <ContentPage.Content>
-        <Grid VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="90*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Column="0" Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="70*" />
-                    <ColumnDefinition Width="30*" />
-                </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0" Grid.Row="0" x:Name="EntryFindBy" Text="{Binding FindByText}">
-                </Entry>
-                <Button Grid.Column="1" Grid.Row="0" x:Name="ButtonFind" Text="Find" Command="{Binding FindCommand}">
-                </Button>
-            </Grid>
-            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1">
-                <ListView
+        <StackLayout>
+            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="90*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70*" />
+                        <ColumnDefinition Width="30*" />
+                    </Grid.ColumnDefinitions>
+                    <Entry Grid.Column="0" Grid.Row="0" x:Name="EntryFindBy" Text="{Binding FindByText}">
+                    </Entry>
+                    <Button Grid.Column="1" Grid.Row="0" x:Name="ButtonFind" Text="Find" Command="{Binding FindCommand}">
+                    </Button>
+                </Grid>
+                <ListView Grid.Column="0" Grid.Row="1"
                     x:Name="ListViewFindedItem"
-                    VerticalOptions="StartAndExpand" 
-                    HorizontalOptions="Fill"
+                    RowHeight="60"
+                    VerticalOptions="FillAndExpand" 
+                    HorizontalOptions="FillAndExpand"
                     ItemsSource="{Binding FindedItems}"
                     CachingStrategy="RetainElement">
                     <ListView.ItemTemplate>
@@ -34,22 +35,20 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="15*" />
-                                            <ColumnDefinition Width="65*" />
-                                            <ColumnDefinition Width="20*" />
+                                            <ColumnDefinition Width="85*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
                                         <Image Grid.Column="0" Grid.Row="0" x:Name="ImageElementIcon" Source="{Binding ImagePath}" />
-                                        <Label Grid.Column="1" Grid.Row="0" x:Name="LabelElementTitle" Text="{Binding Title}" />
-                                        <Button Grid.Column="2" Grid.Row="0" Text="Add to favorites" x:Name="ButtonElementAddToFavorite" />
+                                        <Label Grid.Column="1" Grid.Row="0" x:Name="LabelElementTitle" VerticalOptions="CenterAndExpand" Text="{Binding Title}" />
                                     </Grid>
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </StackLayout>
-        </Grid>
+            </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </local:BaseContentPage>

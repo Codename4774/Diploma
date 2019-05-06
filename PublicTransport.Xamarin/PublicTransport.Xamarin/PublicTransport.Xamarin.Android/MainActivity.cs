@@ -9,6 +9,7 @@ using Android.OS;
 using Xamarin.Forms.GoogleMaps.Android;
 using Android.Content.Res;
 using System.IO;
+using Acr.UserDialogs;
 
 namespace PublicTransport.Xamarin.Droid
 {
@@ -19,6 +20,8 @@ namespace PublicTransport.Xamarin.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            UserDialogs.Init(this);
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

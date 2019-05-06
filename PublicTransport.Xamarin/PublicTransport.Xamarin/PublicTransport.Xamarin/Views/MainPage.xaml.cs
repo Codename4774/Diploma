@@ -14,7 +14,7 @@ namespace PublicTransport.Xamarin.Views
         public MainPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
+            //NavigationPage.SetHasNavigationBar(this, false);
             BindingContext = new MainViewModel(map);
         }
 

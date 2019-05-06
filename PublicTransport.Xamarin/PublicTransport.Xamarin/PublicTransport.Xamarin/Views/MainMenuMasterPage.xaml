@@ -9,6 +9,31 @@
 
         <StackLayout VerticalOptions="FillAndExpand" 
                      HorizontalOptions="FillAndExpand">
+
+            <ListView ItemsSource="{Binding MenuElements}"
+                      SelectedItem="{Binding SelectedMenuElement}"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" 
+                                         MinimumHeightRequest="50">
+                                <!--<Image HorizontalOptions="Start"
+                                       VerticalOptions="Center"
+                                       Aspect="AspectFit"
+                                       Source="no_avatar.png"
+                                       WidthRequest="30"
+                                       HeightRequest="30"
+                                       Margin="16, 0, 0, 0"/>-->
+                                <Label Text="{Binding MenuElementText}"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"
+                                       Margin="25, 0, 0, 0"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

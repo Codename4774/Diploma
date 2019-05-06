@@ -42,15 +42,15 @@ namespace PublicTransport.Xamarin.ViewModels
             if (_GTFSProvider.IsInited)
             {
                 _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
-                FindButtonEnabled = true;
+                //FindButtonEnabled = true;
             }
             else
             {
                 _GTFSProvider.InitCompleted += (sender, e) =>
                 {
                     _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
-                    //UserDialogs.Instance.Alert("GTFS feed was inited");
-                    FindButtonEnabled = true;
+                    UserDialogs.Instance.Alert("GTFS feed was inited");
+                    //FindButtonEnabled = true;
                 };              
             }
         }

@@ -7,7 +7,7 @@ namespace PublicTransport.Xamarin.Views.ListViewModels
 {
     public class MenuElement
     {
-        public string MenuElementImage { get; set; }
+        //public string MenuElementImage { get; set; }
         public string MenuElementText { get; set; }
         public Func<Task> MenuAction { get; set; }
     }

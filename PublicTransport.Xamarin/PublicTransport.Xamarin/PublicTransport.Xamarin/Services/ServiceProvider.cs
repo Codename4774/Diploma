@@ -38,7 +38,20 @@ namespace PublicTransport.Xamarin.Services
 
         public static void Initialize()
         {
-            InitializeBackend();
+            InitializeBackend((data) => {
+                App.Current.Properties["favorite_list"] = data;
+                App.Current.SavePropertiesAsync();
+            },
+            () => {
+                if (App.Current.Properties.ContainsKey("favorite_list"))
+                {
+                    return App.Current.Properties["favorite_list"].ToString();
+                }
+                else
+                {
+                    return "[]";
+                }
+            });
             _navigationService = new NavigationService();
             _imageResourceManager = new PublicTransport.Xamarin.Services.ImageResourceManager.ImageResourceManager(
                 typeof(ServiceProvider).GetTypeInfo().Assembly);

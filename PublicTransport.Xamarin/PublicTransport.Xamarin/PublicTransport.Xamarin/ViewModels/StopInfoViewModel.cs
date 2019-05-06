@@ -18,7 +18,7 @@ namespace PublicTransport.Xamarin.ViewModels
 {
     public class StopInfoViewModel : BaseViewModel
     {
-        public ObservableCollection<TripItemVievModel> Trips { get; } = new ObservableCollection<TripItemVievModel>();
+        public ObservableCollection<TripItemViewModel> Trips { get; } = new ObservableCollection<TripItemViewModel>();
 
         private string _stopName;
 
@@ -61,7 +61,10 @@ namespace PublicTransport.Xamarin.ViewModels
             Stop stop = (Stop)navigationData;
 
             IEnumerable<Trip> trips = _GTFSProvider.GTFSFeed.StopTimes.Where(stopTime => stopTime.StopId == stop.Id)
-                .Select(stopTime => _GTFSProvider.GTFSFeed.Trips.Get(stopTime.TripId))
+                .Join(_GTFSProvider.GTFSFeed.Trips,
+                    stopTime => stopTime.TripId,
+                    trip => trip.Id,
+                    (stopTime, trip) => trip)
                 .Distinct(new TripEqualityComparer<Trip>());
 
             _mapManager.AddStopToMapWithFocus(stop);
@@ -72,7 +75,7 @@ namespace PublicTransport.Xamarin.ViewModels
 
             foreach (Trip trip in trips)
             {
-                Trips.Add(new TripItemVievModel(stop, trip, _GTFSProvider.GTFSFeed.Routes.Get(trip.RouteId)));
+                Trips.Add(new TripItemViewModel(stop, trip, _GTFSProvider.GTFSFeed.Routes.Get(trip.RouteId)));
             }
         }
 

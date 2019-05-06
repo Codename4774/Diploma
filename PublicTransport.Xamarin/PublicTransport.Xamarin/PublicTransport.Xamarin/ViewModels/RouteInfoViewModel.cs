@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace PublicTransport.Xamarin.ViewModels
 {
@@ -166,6 +168,20 @@ namespace PublicTransport.Xamarin.ViewModels
             foreach (Stop stop in stops)
             {
                 Stops.Add(stop);
+            }
+        }
+
+        public ICommand _addToFavoriteListCommand;
+        public ICommand AddToFavoriteListCommand
+        {
+            get
+            {
+                _addToFavoriteListCommand = _addToFavoriteListCommand ?? new Command(async (obj) =>
+                {
+                    Stop stop = (Stop)obj;
+                    ServiceProvider.FavoritesListManager.AddToList(stop, _route, SelectedDirection);
+                });
+                return _addToFavoriteListCommand;
             }
         }
     }

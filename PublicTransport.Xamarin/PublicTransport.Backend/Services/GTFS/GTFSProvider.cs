@@ -19,7 +19,7 @@ namespace PublicTransport.Backend.Services.GTFS
 
         private GTFSReader<GTFSFeed> _GTFSReader;
 
-        private GTFSDirectorySource _GTFSDirectorySource;
+        private PublicTransport.Backend.Services.GTFS.GTFSDirectorySource _GTFSDirectorySource;
 
         private GTFSFeed _GTFSFeed;
 
@@ -27,7 +27,7 @@ namespace PublicTransport.Backend.Services.GTFS
         {
             _isInited = false;
             _dirPath = configurationManager.GetProperty("GTFSFolderPath");
-            _GTFSDirectorySource = new GTFSDirectorySource(_dirPath);
+            _GTFSDirectorySource = new PublicTransport.Backend.Services.GTFS.GTFSDirectorySource(_dirPath);
             _GTFSReader = new GTFSReader<GTFSFeed>();
 
             Task initTask = new Task(() =>

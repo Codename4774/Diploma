@@ -1,5 +1,7 @@
 ﻿using GTFS.Entities;
+using PublicTransport.Backend.Models;
 using PublicTransport.Backend.Services.GTFS;
+using PublicTransport.Backend.Services.Shedule;
 using PublicTransport.Xamarin.Models;
 using PublicTransport.Xamarin.Services;
 using PublicTransport.Xamarin.ViewModels.Base;
@@ -24,6 +26,8 @@ namespace PublicTransport.Xamarin.ViewModels
         private IEnumerable<StopTime> _stopTimes;
 
         private IGTFSProvider _GTFSProvider;
+
+        private ISheduleManager _sheduleManager;
 
         private string _direction;
 
@@ -94,6 +98,7 @@ namespace PublicTransport.Xamarin.ViewModels
         public RouteStopInfoViewModel()
         {
             _GTFSProvider = ServiceProvider.GTFSProvider;
+            _sheduleManager = ServiceProvider.SheduleManager;
         }
 
 
@@ -117,87 +122,27 @@ namespace PublicTransport.Xamarin.ViewModels
 
             _trips = _GTFSProvider.GTFSFeed.Trips.Where(trip => trip.RouteId == _route.Id).ToList();
 
-            _calendars = GetCalendars(_trips);
+            _calendars = _sheduleManager.InitCalendars(_trips);
 
-            _stopTimes = InitStopTimes(_trips, _stop);
+            _stopTimes = _sheduleManager.InitStopTimes(_trips, _stop);
 
             Direction = "Direction: " + routeStop.Direction;
 
-            Days = GetDays();
+            Days = _sheduleManager.GetDays();
 
             RouteName = _route.LongName;
         }
 
-        private DayOfWeek DayOfWeekFromString(string day)
-        {
-            return (DayOfWeek)(Enum.Parse(typeof(DayOfWeek), day));
-        }
-
-        private List<string> GetDays()
-        {
-            return (new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }).ToList();
-        }
-
-        private IEnumerable<Calendar> GetCalendars(IEnumerable<Trip> trips)
-        {
-            List<Calendar> calendars = new List<Calendar>();
-
-            foreach (Trip trip in trips)
-            {
-                calendars.Add(_GTFSProvider.GTFSFeed.Calendars.Where(calendar => calendar.ServiceId == trip.ServiceId).First());
-            }
-
-            return calendars;
-        }
-
         private void UpdateData(string day)
         {
-            DayOfWeek dayOfWeek = DayOfWeekFromString(day);
-
-            IEnumerable<Trip> trips = GetTrips(_trips, _calendars, dayOfWeek);
-
-            IEnumerable<StopTime> stopTimes = GetStopTimes(trips, _stopTimes, _stop);
-
-            IEnumerable<IGrouping<int, StopTime>> stopTimesGroupedByHours = stopTimes.GroupBy(stopTime => stopTime.ArrivalTime.Value.Hours).OrderBy(groupedItem => groupedItem.Key);
+            IEnumerable<TimeItem> times = _sheduleManager.GetOrderedArriveTimeByHours(day, _route, _stop, _trips, _stopTimes, _calendars);
 
             Times.Clear();
 
-            foreach (IGrouping<int, StopTime> groupedItems in stopTimesGroupedByHours)
+            foreach (TimeItem item in times)
             {
-                Times.Add(new TimeItem(groupedItems));
+                Times.Add(item);
             }
-        }
-
-        private IEnumerable<StopTime> GetStopTimes(IEnumerable<Trip> trips, IEnumerable<StopTime> stopTimes, Stop stop)
-        {
-            IEnumerable<string> tripIDs = trips.Select(trip => trip.Id);
-
-            return stopTimes.Where(stopTime => stopTime.StopId == stop.Id && tripIDs.Contains(stopTime.TripId));
-        }
-
-        private IEnumerable<StopTime> InitStopTimes(IEnumerable<Trip> trips, Stop stop)
-        {
-            IEnumerable<string> tripIDs = trips.Select(trip => trip.Id).ToList();
-
-            List<StopTime> result = new List<StopTime>();
-
-            var selector = _GTFSProvider.GTFSFeed.StopTimes.Where(stopTime => stopTime.StopId == stop.Id && tripIDs.Contains(stopTime.TripId));
-
-            foreach (StopTime stopTime in selector)
-            {
-                result.Add(stopTime);
-            }
-
-            return result;
-        }
-
-        private IEnumerable<Trip> GetTrips(IEnumerable<Trip> trips, IEnumerable<Calendar> calendars, DayOfWeek dayOfWeek)
-        {
-            IEnumerable<Calendar> selectedCalendars = calendars.Where(calendar => calendar[dayOfWeek]);
-
-            IEnumerable<string> serviceIDs = selectedCalendars.Select(calendar => calendar.ServiceId);
-
-            return trips.Where(trip => serviceIDs.Contains(trip.ServiceId));
         }
     }
 }
