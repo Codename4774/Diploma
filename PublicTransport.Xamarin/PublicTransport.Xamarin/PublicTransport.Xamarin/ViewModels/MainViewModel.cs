@@ -6,6 +6,7 @@ using PublicTransport.Xamarin.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -48,8 +49,8 @@ namespace PublicTransport.Xamarin.ViewModels
             {
                 _GTFSProvider.InitCompleted += (sender, e) =>
                 {
-                    _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
                     UserDialogs.Instance.Alert("GTFS feed was inited");
+                   _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
                     //FindButtonEnabled = true;
                 };              
             }

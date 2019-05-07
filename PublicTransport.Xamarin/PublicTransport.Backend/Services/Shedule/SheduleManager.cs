@@ -18,6 +18,16 @@ namespace PublicTransport.Backend.Services.Shedule
             _GTFSProvider = GTFSProvider;
         }
 
+        public IEnumerable<TimeOfDay> GetOrderedArriveTimeOfDay(string dayOfWeek, Route route, Stop stop, IEnumerable<Trip> trips = null, IEnumerable<StopTime> stopTimes = null, IEnumerable<Calendar> calendars = null)
+        {
+            IEnumerable<StopTime> stopTimesToProcess = GetStopTimesToProcess(dayOfWeek, route, stop, trips, stopTimes, calendars);
+
+            return stopTimesToProcess
+                .Where(stopTime => stopTime.ArrivalTime.HasValue)
+                .Select(stopTime => stopTime.ArrivalTime.Value)
+                .OrderBy(stopTimeStr => stopTimeStr);
+        }
+
         public IEnumerable<string> GetOrderedArriveTime(string dayOfWeek, Route route, Stop stop, IEnumerable<Trip> trips = null, IEnumerable<StopTime> stopTimes = null, IEnumerable<Calendar> calendars = null)
         {
             IEnumerable<StopTime> stopTimesToProcess = GetStopTimesToProcess(dayOfWeek, route, stop, trips, stopTimes, calendars);
@@ -85,9 +95,11 @@ namespace PublicTransport.Backend.Services.Shedule
             return (DayOfWeek)(Enum.Parse(typeof(DayOfWeek), day));
         }
 
-        public List<string> GetDays()
+        private string[] _days = new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+        public string[] GetDays()
         {
-            return (new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }).ToList();
+            return _days;
         }
 
         private IEnumerable<StopTime> GetStopTimesToProcess(string dayOfWeek, Route route, Stop stop, IEnumerable<Trip> trips = null, IEnumerable<StopTime> stopTimes = null, IEnumerable<Calendar> calendars = null)
@@ -171,7 +183,40 @@ namespace PublicTransport.Backend.Services.Shedule
 
         public int GetRouteTypeSimple(RouteTypeExtended routeTypeExtended)
         {
-            return (int)((int)routeTypeExtended / 100);
+            int value = (int)((int)routeTypeExtended / 100);
+
+            switch (value)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    return 2;
+                case 5:
+                case 6:
+                    return 1;
+                case 7:
+                case 8:
+                    return 3;
+                case 9:
+                    return 0;
+                case 10:
+                case 12:
+                    return 4;
+                case 13:
+                    return 6;
+                case 14:
+                    return 5;
+                default:
+                    return 8;
+            }
+        }
+
+        public string GetCurrentDay()
+        {
+            DateTime dateTime = DateTime.Now;
+
+            return _days[(int)dateTime.DayOfWeek];
         }
     }
 }

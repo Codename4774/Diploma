@@ -128,7 +128,7 @@ namespace PublicTransport.Xamarin.ViewModels
 
             Direction = "Direction: " + routeStop.Direction;
 
-            Days = _sheduleManager.GetDays();
+            Days = _sheduleManager.GetDays().ToList();
 
             RouteName = _route.LongName;
         }

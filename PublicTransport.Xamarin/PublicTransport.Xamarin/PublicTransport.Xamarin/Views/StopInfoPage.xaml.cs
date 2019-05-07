@@ -26,7 +26,7 @@ namespace PublicTransport.Xamarin.Views
         public void MoveCamera()
         {
             mapStop.MoveCamera(CameraUpdateFactory.NewPositionZoom(
-                mapStop.Pins.First().Position, 16d));
+                mapStop.Pins.First().Position, 16d));            
         }
 
         private void ViewCell_Tapped(object sender, EventArgs e)
@@ -39,6 +39,24 @@ namespace PublicTransport.Xamarin.Views
         private void mapStop_SelectedPinChanged(object sender, SelectedPinChangedEventArgs e)
         {
             MoveCamera();
+        }
+
+        private void DisplayNearestArrive_Clicked(object sender, EventArgs e)
+        {
+            StackLayoutTripsItem.IsVisible = false;
+            StackLayoutNearestArrive.IsVisible = true;
+
+            StackLayoutTripsItem.ForceLayout();
+            StackLayoutNearestArrive.ForceLayout();
+        }
+
+        private void DisplayRoutes_Clicked(object sender, EventArgs e)
+        {
+            StackLayoutNearestArrive.IsVisible = false;
+            StackLayoutTripsItem.IsVisible = true;
+
+            StackLayoutNearestArrive.ForceLayout();
+            StackLayoutTripsItem.ForceLayout();
         }
     }
 }

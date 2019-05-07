@@ -15,6 +15,7 @@ namespace PublicTransport.Backend.Services.FavoritesList
         bool IsItemContained(Stop stop, Route route, string direction);
         bool IsItemContained(string stopID, string routeID, string direction);
         void SaveListState();
+        string GetSerializedList();
         ICollection<FavoriteStop> FavoriteStops { get; }
     }
 }

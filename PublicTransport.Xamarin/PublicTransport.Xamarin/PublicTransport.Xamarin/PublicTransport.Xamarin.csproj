@@ -20,6 +20,7 @@
     <Compile Remove="Services\MockDataStore.cs" />
     <Compile Remove="ViewModels\AboutViewModel.cs" />
     <Compile Remove="ViewModels\BaseViewModel.cs" />
+    <Compile Remove="ViewModels\GTFSEntitiesListItems\NearestArriveTimeViewModel_old.cs" />
     <Compile Remove="ViewModels\ItemDetailViewModel.cs" />
     <Compile Remove="ViewModels\ItemsViewModel.cs" />
     <Compile Remove="Views\AboutPage.xaml.cs" />

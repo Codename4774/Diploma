@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GTFS.Entities;
+using PublicTransport.Backend.Models;
 
 namespace PublicTransport.Backend.Services.Time.TimeEvents
 {
@@ -10,19 +11,11 @@ namespace PublicTransport.Backend.Services.Time.TimeEvents
     {
         private bool _needToProcess;
 
-        private int _minutesBefore;
-
-        private int _minutesAfter;
-
-        private bool _calculateNearestArrives;
-
         private TimeOfDay _nextArriveTime;
 
         private int _minutesToNextArrive;
 
         private List<TimeOfDay> _times;
-
-        private List<TimeOfDay> _nearestArriveTimes;
 
         public TimeOfDay NextArriveTime
         {
@@ -40,31 +33,19 @@ namespace PublicTransport.Backend.Services.Time.TimeEvents
             }
         }
 
-        public IEnumerable<TimeOfDay> NearestArrivesTimes
-        {
-            get
-            {
-                return _nearestArriveTimes;
-            }
-        }
-
         public event EventHandler NextArriveTimeChanged;
-        public event EventHandler NearestArrivesChanged;
         public event EventHandler NoArrivesToday;
         public event EventHandler MinutesToNextArriveChanged;
 
         private static char[] _seperator = new char[] { ':' };
 
-        private ArriveTimeNotificator(int minutesBefore, int minutesAfter, bool calculateNearestArrives)
+        private ArriveTimeNotificator()
         {
-            _minutesBefore = minutesBefore;
-            _minutesAfter = minutesAfter;
-            _calculateNearestArrives = calculateNearestArrives;
             _needToProcess = true;
         }
 
-        public ArriveTimeNotificator(IEnumerable<string> times, int minutesBefore, int minutesAfter, bool calculateNearestArrives) 
-            : this(minutesBefore, minutesAfter, calculateNearestArrives)
+        public ArriveTimeNotificator(IEnumerable<string> times) 
+            : this()
         {
             _times = times.Select(timeStr =>
             {
@@ -76,16 +57,23 @@ namespace PublicTransport.Backend.Services.Time.TimeEvents
                 return timeOfDay;
             }).ToList();
 
-            _nextArriveTime = _times.FirstOrDefault();
+            DateTime dateTime = DateTime.Now;
+
+            _nextArriveTime = SetNearestArrive(dateTime.Hour, dateTime.Minute);
             _minutesToNextArrive = MinutesDiffWithCurrent(DateTime.Now, _nextArriveTime);
-            UpdateState(DateTime.Now);
+            UpdateState(dateTime);
         }
 
-        public ArriveTimeNotificator(IEnumerable<TimeOfDay> times, int minutesBefore, int minutesAfter, bool calculateNearestArrives)
-            : this(minutesBefore, minutesAfter, calculateNearestArrives)
+        public ArriveTimeNotificator(IEnumerable<TimeOfDay> times)
+            : this()
         {
             _times = times.ToList();
-            _nextArriveTime = _times.FirstOrDefault();
+
+            DateTime dateTime = DateTime.Now;
+
+            _nextArriveTime = SetNearestArrive(dateTime.Hour, dateTime.Minute);
+            _minutesToNextArrive = MinutesDiffWithCurrent(DateTime.Now, _nextArriveTime);
+            UpdateState(dateTime);
         }
 
 
@@ -95,38 +83,6 @@ namespace PublicTransport.Backend.Services.Time.TimeEvents
             int currentMinutes = dateTime.Minute;
 
             ProcessNextArriveTime(currentHour, currentMinutes);
-
-            if (_calculateNearestArrives)
-            {
-                ProcessNearestArriveTimes(currentHour, currentMinutes);
-            }
-        }
-
-        private void ProcessNearestArriveTimes(int currentHour, int currentMinutes)
-        {
-            if (_calculateNearestArrives)
-            {
-                int totalMinutes = currentHour * 60 + currentMinutes;
-
-                if (_needToProcess)
-                {
-                    IEnumerable<TimeOfDay> timesToAdd = _times.Where(time =>
-                    {
-                        int timeDiffMin = totalMinutes - (time.Hours * 60 + time.Minutes);
-
-                        return timeDiffMin > -_minutesBefore && timeDiffMin < _minutesAfter;
-                    });
-
-                    if (timesToAdd.Count() != 0)
-                    {
-                        _nearestArriveTimes = timesToAdd.ToList();
-                        if (NearestArrivesChanged != null)
-                        {
-                            NearestArrivesChanged(this, new EventArgs());
-                        }
-                    }
-                }
-            }
         }
 
         private int MinutesDiffWithCurrent(DateTime current, TimeOfDay timeOfDay)
@@ -153,6 +109,26 @@ namespace PublicTransport.Backend.Services.Time.TimeEvents
         //    }
         //}
 
+        private TimeOfDay SetNearestArrive(int currentHour, int currentMinutes)
+        {
+            IEnumerable<TimeOfDay> result = _times.Where(time => currentHour * 60 + currentMinutes - time.Hours * 60 - time.Minutes < 0);
+
+            if (result.Count() == 0)
+            {
+                _needToProcess = false;
+                if (NoArrivesToday != null)
+                {
+                    NoArrivesToday(this, new EventArgs());
+                }
+
+                return default(TimeOfDay);
+            }
+            else
+            {
+                return result.First();
+            }
+        }
+
         private void ProcessNextArriveTime(int currentHour, int currentMinutes)
         {
             if (_needToProcess)
@@ -164,7 +140,7 @@ namespace PublicTransport.Backend.Services.Time.TimeEvents
                     MinutesToNextArriveChanged(this, new EventArgs());
                 }
 
-                if (MinutesDiff(currentHour, currentMinutes, _nextArriveTime.Hours, _nextArriveTime.Minutes) < 0)
+                if (MinutesDiff(currentHour, currentMinutes, _nextArriveTime.Hours, _nextArriveTime.Minutes) > 0)
                 {
                     TimeOfDay last = _times.Last();
 
@@ -179,7 +155,7 @@ namespace PublicTransport.Backend.Services.Time.TimeEvents
                     else
                     {
                         _nextArriveTime = _times[_times.FindIndex(time => time.Hours == _nextArriveTime.Hours
-                                                                && time.Minutes == _nextArriveTime.Minutes)];
+                                                                && time.Minutes == _nextArriveTime.Minutes) + 1];
 
 
                         if (NextArriveTimeChanged != null)

@@ -49,20 +49,20 @@ namespace PublicTransport.Xamarin.ViewModels
 
         private void AddMenuElements()
         {
-            MenuElements.Add(new MenuElement()
-            {
-                MenuElementText = "Map",
-                MenuAction = async () =>
-                {
-                    await ServiceProvider.NavigationService.ChangeDetailPage<MainViewModel>();
-                }
-            });
+            //MenuElements.Add(new MenuElement()
+            //{
+            //    MenuElementText = "Map",
+            //    MenuAction = async () =>
+            //    {
+            //        await ServiceProvider.NavigationService.ChangeDetailPage<MainViewModel>();
+            //    }
+            //});
             MenuElements.Add(new MenuElement()
             {
                 MenuElementText = "Find",
                 MenuAction = async () =>
                 {
-                    await ServiceProvider.NavigationService.ChangeDetailPage<FindViewModel>();
+                    await ServiceProvider.NavigationService.OpenAsync<FindViewModel>();
                 }
             });
             MenuElements.Add(new MenuElement()
@@ -70,7 +70,7 @@ namespace PublicTransport.Xamarin.ViewModels
                 MenuElementText = "Favorite list",
                 MenuAction = async() =>
                 {
-                    await ServiceProvider.NavigationService.ChangeDetailPage<FavoriteListViewModel>();
+                    await ServiceProvider.NavigationService.OpenAsync<FavoriteListViewModel>();
                 }
             });
         }

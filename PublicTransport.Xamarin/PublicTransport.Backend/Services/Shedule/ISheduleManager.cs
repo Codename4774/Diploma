@@ -9,6 +9,7 @@ namespace PublicTransport.Backend.Services.Shedule
 {
     public interface ISheduleManager
     {
+        IEnumerable<TimeOfDay> GetOrderedArriveTimeOfDay(string dayOfWeek, Route route, Stop stop, IEnumerable<Trip> trips = null, IEnumerable<StopTime> stopTimes = null, IEnumerable<Calendar> calendars = null);
         IEnumerable<string> GetOrderedArriveTime(string dayOfWeek, Route route, Stop stop, IEnumerable<Trip> trips = null, IEnumerable<StopTime> stopTimes = null, IEnumerable<Calendar> calendars = null);
         IEnumerable<IEnumerable<string>> GetOrderedArriveTimeForAllDays(Route route, Stop stop, IEnumerable<Trip> trips = null, IEnumerable<StopTime> stopTimes = null, IEnumerable<Calendar> calendars = null);
         IEnumerable<TimeItem> GetOrderedArriveTimeByHours(string dayOfWeek, Route route, Stop stop, IEnumerable<Trip> trips = null, IEnumerable<StopTime> stopTimes = null, IEnumerable<Calendar> calendars = null);
@@ -17,7 +18,8 @@ namespace PublicTransport.Backend.Services.Shedule
         IEnumerable<StopTime> InitStopTimes(IEnumerable<Trip> trips, Stop stop);
         int GetRouteTypeSimple(RouteTypeExtended routeTypeExtended);
         DayOfWeek DayOfWeekFromString(string day);
-        List<string> GetDays();
+        string[] GetDays();
         string FormatTime(TimeOfDay timeOfDay);
+        string GetCurrentDay();
     }
 }

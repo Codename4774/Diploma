@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using PublicTransport.Xamarin.Services.ImageResourceManager;
 using System.Reflection;
+using PublicTransport.Xamarin.Services.Bluetooth;
+using Xamarin.Forms;
 
 namespace PublicTransport.Xamarin.Services
 {
@@ -19,6 +21,8 @@ namespace PublicTransport.Xamarin.Services
         private static INavigationService _navigationService;
 
         private static IImageResourceManager _imageResourceManager;
+
+        private static IBluetoothService _bluetoothService;
 
         public static INavigationService NavigationService
         {
@@ -33,6 +37,14 @@ namespace PublicTransport.Xamarin.Services
             get
             {
                 return _imageResourceManager;
+            }
+        }
+
+        public static IBluetoothService BluetoothService
+        {
+            get
+            {
+                return _bluetoothService;
             }
         }
 
@@ -53,6 +65,7 @@ namespace PublicTransport.Xamarin.Services
                 }
             });
             _navigationService = new NavigationService();
+            _bluetoothService = DependencyService.Get<IBluetoothService>();
             _imageResourceManager = new PublicTransport.Xamarin.Services.ImageResourceManager.ImageResourceManager(
                 typeof(ServiceProvider).GetTypeInfo().Assembly);
         }

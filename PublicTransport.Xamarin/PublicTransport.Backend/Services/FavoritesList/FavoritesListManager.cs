@@ -156,6 +156,13 @@ namespace PublicTransport.Backend.Services.FavoritesList
                                              && item.stop_id == stopID).Count() != 0;
         }
 
+        public string GetSerializedList()
+        {
+            string result = JsonConvert.SerializeObject(_favoriteStops);
+
+            return result;
+        }
+
         #endregion
     }
 }
