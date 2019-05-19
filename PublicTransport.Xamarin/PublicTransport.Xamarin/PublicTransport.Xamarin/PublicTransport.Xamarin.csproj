@@ -37,11 +37,37 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\add_to_favorites.png" />
+    <None Remove="Images\aerial_lift.png" />
+    <None Remove="Images\bus.png" />
+    <None Remove="Images\cable_tram.png" />
+    <None Remove="Images\ferry.png" />
+    <None Remove="Images\funicular.png" />
+    <None Remove="Images\metro.png" />
+    <None Remove="Images\plane.png" />
+    <None Remove="Images\rail.png" />
+    <None Remove="Images\remove_from_favorites.png" />
     <None Remove="Images\stop.png" />
+    <None Remove="Images\tram.png" />
+    <None Remove="Images\trolleybus.png" />
+    <None Remove="Images\unknown.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Images\add_to_favorites.png" />
+    <EmbeddedResource Include="Images\aerial_lift.png" />
+    <EmbeddedResource Include="Images\bus.png" />
+    <EmbeddedResource Include="Images\cable_tram.png" />
+    <EmbeddedResource Include="Images\ferry.png" />
+    <EmbeddedResource Include="Images\funicular.png" />
+    <EmbeddedResource Include="Images\metro.png" />
+    <EmbeddedResource Include="Images\plane.png" />
+    <EmbeddedResource Include="Images\rail.png" />
+    <EmbeddedResource Include="Images\remove_from_favorites.png" />
     <EmbeddedResource Include="Images\stop.png" />
+    <EmbeddedResource Include="Images\tram.png" />
+    <EmbeddedResource Include="Images\trolleybus.png" />
+    <EmbeddedResource Include="Images\unknown.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,7 +76,7 @@
     <PackageReference Include="GTFS" Version="2.1.5-pre03" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.4.859" />
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.2.0" />  
   </ItemGroup>
 

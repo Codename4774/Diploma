@@ -16,8 +16,12 @@ namespace PublicTransport.Xamarin.Views
     {
 		public FindPage ()
 		{
-			InitializeComponent ();
-		}
+			InitializeComponent();
+            ListViewFindedItem.ItemTapped += (object sender, ItemTappedEventArgs e) => {
+                if (e.Item == null) return;
+                ((ListView)sender).SelectedItem = null;
+            };
+        }
 
         private void ViewCell_Tapped(object sender, EventArgs e)
         {

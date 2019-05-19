@@ -24,6 +24,8 @@ namespace PublicTransport.Xamarin.ViewModels
 {
     public class StopInfoViewModel : BaseViewModel
     {
+        private Stop _stop;
+
         private IArriveTimeManager _arriveTimeManager;
 
         private ISheduleManager _sheduleManager;
@@ -77,6 +79,8 @@ namespace PublicTransport.Xamarin.ViewModels
         private void InitData(object navigationData)
         {
             Stop stop = (Stop)navigationData;
+
+            _stop = stop;
 
             IEnumerable<StopTime> stopTimes = _GTFSProvider.GTFSFeed.StopTimes
                 .Where(stopTime => stopTime.StopId == stop.Id)
@@ -165,7 +169,8 @@ namespace PublicTransport.Xamarin.ViewModels
             {
                 _showOnMainMapCommand = _showOnMainMapCommand ?? new Command(async () =>
                 {
-                    //open details page for Stops
+                    MapManager.MainMapInstanse.SetFocusToStop(_stop);
+                    await _navigationService.GoToRoot();
                 });
                 return _showOnMainMapCommand;
             }

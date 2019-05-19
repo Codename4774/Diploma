@@ -26,8 +26,19 @@ namespace PublicTransport.Xamarin.Services.ImageResourceManager
 
         private void InitCache()
         {
+            AddItemToCache(Constants.AERIAL_LIFT_ICON_PATH);
+            AddItemToCache(Constants.BUS_ICON_FILE_PATH);
+            AddItemToCache(Constants.CABLE_TRAM_ICON_FILE_PATH);
+            AddItemToCache(Constants.FAVORITE_BUTTON_ADD_ICON_FILE_PATH);
+            AddItemToCache(Constants.FAVORITE_BUTTON_REMOVE_ICON_FILE_PATH);
+            AddItemToCache(Constants.FERRY_ICON_FILE_PATH);
+            AddItemToCache(Constants.FUNICULAR_ICON_FILE_PATH);
+            AddItemToCache(Constants.METRO_ICON_FILE_PATH);
+            AddItemToCache(Constants.RAIL_ICON_FILE_PATH);
             AddItemToCache(Constants.STOP_ICON_FILE_PATH);
-            //AddItemToCache(Constants.ROUTE_ICON_FILE_PATH);
+            AddItemToCache(Constants.TRAM_ICON_FILE_PATH);
+            AddItemToCache(Constants.TROLLEYBUS_ICON_FILE_PATH);
+            AddItemToCache(Constants.UNKNOWN_ICON_FILE_PATH);
         }
 
         private void AddItemToCache(string filePath)

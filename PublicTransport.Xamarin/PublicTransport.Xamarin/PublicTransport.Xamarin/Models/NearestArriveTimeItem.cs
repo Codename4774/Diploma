@@ -1,5 +1,6 @@
 ﻿
 using PublicTransport.Backend.Models;
+using PublicTransport.Backend.Services.Shedule;
 using PublicTransport.Xamarin.Common;
 using PublicTransport.Xamarin.Services;
 using PublicTransport.Xamarin.ViewModels.Base;
@@ -12,6 +13,8 @@ namespace PublicTransport.Xamarin.Models
 {
     public class NearestArriveTimeItem : BaseViewModel
     {
+        private ISheduleManager _sheduleManager;
+
         private NearestArriveTimeModel _nearestArriveTimeModel;
 
         public ImageSource ImagePath
@@ -19,7 +22,7 @@ namespace PublicTransport.Xamarin.Models
             get
             {
                 //todo: add custom icons for routes per type
-                return ServiceProvider.ImageResourceManager.GetImageSourceFromCache(Constants.ROUTE_ICON_FILE_PATH);
+                return CommonMethods.GetIconForRouteType(_sheduleManager.GetRouteTypeSimple(_nearestArriveTimeModel.Route.Type));
             }
         }
 
@@ -40,6 +43,7 @@ namespace PublicTransport.Xamarin.Models
 
         public NearestArriveTimeItem(NearestArriveTimeModel nearestArriveTimeModel, string title)
         {
+            _sheduleManager = ServiceProvider.SheduleManager;
             _nearestArriveTimeModel = nearestArriveTimeModel;
             Title = title;
         }

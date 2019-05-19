@@ -53,18 +53,7 @@ namespace PublicTransport.Xamarin.Droid.Bluetooth
                     socket.Connect();
 
                     byte[] dataToSend = System.Text.Encoding.UTF8.GetBytes(data + "{END}");
-                    //socket.OutputStream.WriteTimeout = 5000;
                     socket.OutputStream.Write(dataToSend, 0, dataToSend.Length);
-                    //int sended = 0;
-                    //while (sended < dataToSend.Length)
-                    //{
-                    //    socket.OutputStream.Write(dataToSend, sended, sended + 1024);
-                    //    socket.OutputStream.Flush();
-                    //    sended += 1024;
-                    //}
-                    //byte[] endMessage = System.Text.Encoding.UTF8.GetBytes("{END}");
-                    //socket.OutputStream.Write(endMessage, 0, endMessage.Length);
-                    //socket.OutputStream.Flush();
                 }
                 catch (Exception e)
                 {

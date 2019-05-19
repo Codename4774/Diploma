@@ -1,4 +1,5 @@
 ﻿using GTFS.Entities;
+using PublicTransport.Backend.Services.Shedule;
 using PublicTransport.Xamarin.Common;
 using PublicTransport.Xamarin.Services;
 using System;
@@ -11,6 +12,9 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
 {
     public class RouteItemViewModel : FindedItemViewModel
     {
+        private readonly ISheduleManager _sheduleManager;
+
+
         protected Route Route
         {
             get
@@ -27,8 +31,7 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
         {
             get
             {
-                //todo: add custom icons for routes per type
-                return ServiceProvider.ImageResourceManager.GetImageSourceFromCache(Constants.ROUTE_ICON_FILE_PATH);
+                return CommonMethods.GetIconForRouteType(_sheduleManager.GetRouteTypeSimple(Route.Type));
             }
         }
         public override string Title
@@ -41,6 +44,7 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
 
         public RouteItemViewModel(Route stop) : base(stop)
         {
+            _sheduleManager = ServiceProvider.SheduleManager;
         }
 
         public ICommand _openDetailsCommand;

@@ -8,7 +8,9 @@ namespace PublicTransport.Xamarin.Services.MapManager
 {
     public interface IMapManager
     {
+        IMapManager MainMap { get; set; }
         StopItem this[int hashCode] { get; }
+        void SetFocusToStop(Stop stop);
         void AddStopToMap(Stop stop);
         void AddStopsToMap(IEnumerable<Stop> stops);
         void RemoveStopFromMap(int stopHashCode);

@@ -17,11 +17,25 @@ namespace PublicTransport.Xamarin.Services.MapManager
     {
         private Dictionary<String, BitmapDescriptor> _bitmaps;
 
+        private static IMapManager _mainMap;
+
         private Map _map;
 
         private Dictionary<int, StopItem> _stopItems;
 
         private IImageResourceManager _imageResourceManager;
+
+        public IMapManager MainMap
+        {
+            get => MainMapInstanse;
+            set => MainMapInstanse = value;
+        }
+
+        public static IMapManager MainMapInstanse
+        {
+            get => _mainMap;
+            set => _mainMap = value;
+        }
 
         public MapManager(Map map)
         {
@@ -110,6 +124,18 @@ namespace PublicTransport.Xamarin.Services.MapManager
             {
                 pin.IsVisible = visibility;
             }
+        }
+
+        public void SetFocusToStop(Stop stop)
+        {
+            Pin pin = _stopItems.Where(stopItem => stopItem.Value.Stop.Id == stop.Id).First().Value.Pin;
+
+            _map.MoveCamera(CameraUpdateFactory.NewPositionZoom(
+                pin.Position, 16d));
+
+            pin.IsVisible = true;
+
+            _map.SelectedPin = pin;       
         }
 
         #endregion

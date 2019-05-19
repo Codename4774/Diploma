@@ -18,6 +18,7 @@
                     x:Name="Times"
                     VerticalOptions="FillAndExpand" 
                     HorizontalOptions="FillAndExpand"
+                    SelectionMode="None"
                     ItemsSource="{Binding Times, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

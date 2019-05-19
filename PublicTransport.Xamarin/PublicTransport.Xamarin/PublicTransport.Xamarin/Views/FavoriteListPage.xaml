@@ -17,6 +17,7 @@
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding FavoriteList}"
                         RowHeight="70"
+                        SelectionMode="None"
                         CachingStrategy="RetainElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -40,7 +41,7 @@
                                             <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" FontSize="Small" x:Name="LabelNextArriveTime" Text="{Binding MinutesToNextArriveTime}" />
                                         </Grid>
                                         <Label Grid.Column="1" Grid.Row="0" x:Name="LabelElementTitle" Text="{Binding Title}" />
-                                        <Button Grid.Column="2" Grid.Row="0" FontSize="Micro"  Text="Remove" x:Name="ButtonElementAddToFavorite" Command="{Binding RemoveFromFavoriteListCommand}" />
+                                        <ImageButton Grid.Column="2" Grid.Row="0" Source="{Binding ButtonFavoriteImageSource}" x:Name="ButtonElementAddToFavorite" Command="{Binding RemoveFromFavoriteListCommand}" />
                                     </Grid>
                                 </ViewCell.View>
                             </ViewCell>

@@ -17,17 +17,31 @@ namespace PublicTransport.Xamarin.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class StopInfoPage : BaseContentPage
 	{
-		public StopInfoPage()
+        private string mapStyle = "[{\"featureType\": \"transit.station\",\"stylers\": [{\"visibility\": \"off\"}]}]";
+
+        public StopInfoPage()
 		{         
             InitializeComponent();
+
+            ListViewNearestArrive.ItemTapped += (object sender, ItemTappedEventArgs e) => {
+                if (e.Item == null) return;
+                ((ListView)sender).SelectedItem = null;
+            };
+
+            mapStop.MapStyle = MapStyle.FromJson(mapStyle);
+
             BindingContext = new StopInfoViewModel(mapStop);
         }
 
         public void MoveCamera()
         {
             mapStop.MoveCamera(CameraUpdateFactory.NewPositionZoom(
-                mapStop.Pins.First().Position, 16d));            
+                mapStop.Pins.First().Position, 16d));
+            mapStop.UiSettings.RotateGesturesEnabled = false;
+            mapStop.UiSettings.ScrollGesturesEnabled = false;
+            mapStop.UiSettings.ZoomGesturesEnabled = false;
         }
+
 
         private void ViewCell_Tapped(object sender, EventArgs e)
         {
@@ -49,6 +63,8 @@ namespace PublicTransport.Xamarin.Views
             StackLayoutTripsItem.ForceLayout();
             StackLayoutNearestArrive.ForceLayout();
         }
+
+
 
         private void DisplayRoutes_Clicked(object sender, EventArgs e)
         {

@@ -39,11 +39,11 @@ namespace PublicTransport.Xamarin.ViewModels
         {
             _GTFSProvider = ServiceProvider.GTFSProvider;
             _mapManager = new MapManager(map);
+            _mapManager.MainMap = _mapManager;
             FindButtonEnabled = false;
             if (_GTFSProvider.IsInited)
             {
                 _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
-                //FindButtonEnabled = true;
             }
             else
             {
@@ -51,7 +51,6 @@ namespace PublicTransport.Xamarin.ViewModels
                 {
                     UserDialogs.Instance.Alert("GTFS feed was inited");
                    _mapManager.AddStopsToMap(_GTFSProvider.GTFSFeed.Stops);
-                    //FindButtonEnabled = true;
                 };              
             }
         }

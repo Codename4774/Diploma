@@ -14,7 +14,11 @@ namespace PublicTransport.Xamarin.Views
 		public RouteInfoPage ()
 		{
             InitializeComponent();
-		}
+            Stops.ItemTapped += (object sender, ItemTappedEventArgs e) => {
+                if (e.Item == null) return;
+                ((ListView)sender).SelectedItem = null;
+            };
+        }
 
         private void Stops_ItemTapped(object sender, ItemTappedEventArgs e)
         {

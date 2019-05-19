@@ -14,6 +14,12 @@ namespace PublicTransport.Xamarin.Views
 		public MainMenuMasterPage()
 		{
 			InitializeComponent();
+
+            listViewMenu.ItemTapped += (object sender, ItemTappedEventArgs e) => {
+                if (e.Item == null) return;
+                ((ListView)sender).SelectedItem = null;
+            };
+
             BindingContext = new MainMenuMasterViewModel();
 		}
 	}

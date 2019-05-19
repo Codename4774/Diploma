@@ -86,7 +86,8 @@
                                         </Grid.RowDefinitions>
                                         <Image Grid.Column="0" Grid.Row="0" x:Name="ImageElementIcon" Source="{Binding ImagePath}" />
                                         <Label Grid.Column="1" Grid.Row="0" x:Name="LabelElementTitle" Text="{Binding Title}" />
-                                        <Button Grid.Column="2" Grid.Row="0" Text="Add to favorites" x:Name="ButtonElementAddToFavorite" Command="{Binding AddToFavoriteListCommand}" />
+                                        <ImageButton Source="{Binding ButtonFavoriteImageSource}" Grid.Column="2" Grid.Row="0" x:Name="ButtonElementAddToFavorite"
+                                                Command="{Binding AddToFavoriteListCommand}" />
                                     </Grid>
                                 </ViewCell.View>
                             </ViewCell>

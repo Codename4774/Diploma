@@ -1,4 +1,5 @@
-﻿using PublicTransport.Backend.Models;
+﻿using Acr.UserDialogs;
+using PublicTransport.Backend.Models;
 using PublicTransport.Backend.Services.Configuration;
 using PublicTransport.Backend.Services.FavoritesList;
 using PublicTransport.Backend.Services.Shedule;
@@ -75,8 +76,17 @@ namespace PublicTransport.Xamarin.ViewModels
                 {
                     string data = _favoritesListManager.GetSerializedList();
                     string error = "";
-
+                    UserDialogs.Instance.ShowLoading();
                     _bluetoothService.SendDataToWearableDevice(data, out error);
+                    UserDialogs.Instance.HideLoading();
+                    if (error == "")
+                    {
+                        UserDialogs.Instance.Alert("Ok.");
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.Alert(error);
+                    }
                 });
                 return _sendToWearableCommand;
             }

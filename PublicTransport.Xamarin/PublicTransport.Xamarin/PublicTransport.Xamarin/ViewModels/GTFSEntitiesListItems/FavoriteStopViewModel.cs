@@ -89,8 +89,15 @@ namespace PublicTransport.Xamarin.ViewModels.GTFSEntitiesListItems
         {
             get
             {
-                //todo: add custom icons for routes per type
-                return ServiceProvider.ImageResourceManager.GetImageSourceFromCache(Constants.ROUTE_ICON_FILE_PATH);
+                return CommonMethods.GetIconForRouteType(_favoriteStop.route_type);
+            }
+        }
+
+        public ImageSource ButtonFavoriteImageSource
+        {
+            get
+            {
+                return ServiceProvider.ImageResourceManager.GetImageSourceFromCache(Constants.FAVORITE_BUTTON_REMOVE_ICON_FILE_PATH);
             }
         }
 

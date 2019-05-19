@@ -10,7 +10,7 @@
         <StackLayout VerticalOptions="FillAndExpand" 
                      HorizontalOptions="FillAndExpand">
 
-            <ListView ItemsSource="{Binding MenuElements}"
+            <ListView x:Name="listViewMenu" ItemsSource="{Binding MenuElements}"
                       SelectedItem="{Binding SelectedMenuElement}"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
